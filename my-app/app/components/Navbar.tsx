@@ -91,7 +91,9 @@ const Navbar: React.FC = () => {
             {/* CTA BUTTON */}
             <a
               href="/#contact"
-              onClick={e => handleScroll(e, "contact")}
+                onClick={e => {
+                  if (pathname === "/") handleScroll(e, "contact");
+                }}
               className="bg-[#C8102E] hover:bg-[#a00d25] text-white px-6 py-2 rounded-sm uppercase font-bold text-sm tracking-wide transition-all transform hover:scale-105 shadow-md"
             >
               Contact Us
@@ -157,8 +159,10 @@ const Navbar: React.FC = () => {
           {navLinks.map(link => (
             <a
               key={link.id}
-              href={`#${link.id}`}
-              onClick={e => handleScroll(e, link.id)}
+              href={`/#${link.id}`}
+                onClick={e => {
+                  if (pathname === "/") handleScroll(e, link.id);
+                }}
               className={`text-lg uppercase font-semibold tracking-wide transition-colors ${
                 darkMode ? "text-[#BFC0C0] hover:text-white" : "text-gray-700 hover:text-[#C8102E]"
               }`}
@@ -169,8 +173,10 @@ const Navbar: React.FC = () => {
 
           <div className={`pt-6 border-t ${darkMode ? "border-[#505052]" : "border-gray-300"}`}>
             <a
-              href="#contact"
-              onClick={e => handleScroll(e, "contact")}
+              href="/#contact"
+                onClick={e => {
+                  if (pathname === "/") handleScroll(e, "contact");
+                }}
               className="block w-full text-center bg-[#C8102E] px-6 py-3 rounded-sm uppercase font-bold tracking-wide shadow-md"
             >
               Contact Us

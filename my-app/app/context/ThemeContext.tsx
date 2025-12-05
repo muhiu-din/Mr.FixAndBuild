@@ -10,11 +10,28 @@ interface ThemeContextProps {
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [darkMode, setDarkMode] = useState<boolean>(true);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      if (saved) return saved === "dark";
 
-  const toggleTheme = () => setDarkMode(prev => !prev);
+      // DEFAULT TO LIGHT MODE
+      return false;
+    }
+    return false;
+  });
 
-  // Add/remove 'dark' class on <html> for Tailwind
+  const toggleTheme = () => {
+    setDarkMode(prev => {
+      const newMode = !prev;
+      if (typeof window !== "undefined") {
+        localStorage.setItem("theme", newMode ? "dark" : "light");
+      }
+      return newMode;
+    });
+  };
+
+  // Add/remove 'dark' class on <html>
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");

@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { useTheme } from "./context/ThemeContext"; 
+import { projects } from "@/app/data/projects";
 import { motion, Variants } from "framer-motion"; // Added 'Variants' import
 import { 
   Hammer, 
@@ -36,8 +38,8 @@ const staggerContainer: Variants = {
 
 const HomePage = () => {
   const { darkMode } = useTheme(); 
-  const whatsappNumber = "1234567890"; 
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hello%20Mr.%20Fix%20and%20Build,%20I%20need%20a%20quote.`;
+  const whatsappNumber = "+447343025270"; 
+  const whatsappLink = `https://wa.me/${447343025270}?text=Hello%20Mr.%20Fix%20and%20Build,%20I%20need%20a%20quote.`;
 
   const services = [
     {
@@ -47,41 +49,22 @@ const HomePage = () => {
     },
     {
       title: "Custom Carpentry",
-      desc: "Bespoke shelving, cabinetry, and structural framework built with precision and strength.",
+      desc: "Bespoke shelving, cabinetry, and stud walls built with precision and strength and Flat-pack joinery.",
       icon: <Hammer className="w-8 h-8" />,
     },
     {
       title: "Painting & Decorating",
-      desc: "Interior and exterior painting that revitalizes your space with clean lines and premium finishes.",
+      desc: "Interior and exterior painting that revitalizes your space with clean and premium finishes.",
       icon: <PaintBucket className="w-8 h-8" />,
     },
     {
       title: "Renovations",
-      desc: "Full-scale remodeling for kitchens, bathrooms, and basements. We manage the project A-Z.",
+      desc: "Full-scale remodeling for kitchens, bathrooms, bedrooms and living rooms. We manage the project A-Z.",
       icon: <Ruler className="w-8 h-8" />,
     },
   ];
 
-  const projects = [
-    {
-      title: "Modern Kitchen Remodel",
-      category: "Renovation",
-      image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=2940&auto=format&fit=crop",
-      desc: "Complete overhaul of a 1980s kitchen into a modern culinary space."
-    },
-    {
-      title: "Backyard Deck Construction",
-      category: "Carpentry",
-      image: "https://images.unsplash.com/photo-1591825729269-caeb344f6df2?q=80&w=2940&auto=format&fit=crop",
-      desc: "Custom cedar decking with integrated seating and pergola."
-    },
-    {
-      title: "Luxury Bathroom Suite",
-      category: "Plumbing & Tiling",
-      image: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=80&w=2000&auto=format&fit=crop",
-      desc: "Spa-inspired bathroom renovation with heated floors and walk-in rain shower."
-    }
-  ];
+  
 
   return (
     <div className={`min-h-screen font-sans selection:bg-[#C8102E] selection:text-white transition-colors duration-300 ${
@@ -208,12 +191,18 @@ const HomePage = () => {
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
           >
-            {projects.map((project, index) => (
-              <motion.div 
-                key={index}
-                variants={fadeInUp}
-                className="group relative overflow-hidden rounded-sm shadow-xl cursor-pointer"
-              >
+            {projects.map((project, index) => {
+              const slug = project.title.toLowerCase().replace(/\s+/g, "-");
+              return (
+                <Link
+                  key={index}
+                  href={`/projects/${slug}`}
+                  className="group relative overflow-hidden rounded-sm shadow-xl block"
+                >
+                  <motion.div 
+                    variants={fadeInUp}
+                    className="relative overflow-hidden rounded-sm"
+                  >
                 {/* Image */}
                 <div className="aspect-4/5 md:aspect-3/4 overflow-hidden">
                   <img 
@@ -235,8 +224,10 @@ const HomePage = () => {
                     {project.desc}
                   </p>
                 </div>
-              </motion.div>
-            ))}
+                  </motion.div>
+                </Link>
+              );
+            })}
           </motion.div>
 
           <div className="mt-12 text-center md:hidden">
@@ -305,7 +296,7 @@ const HomePage = () => {
                 ))}
               </div>
 
-              <a href="#contact" className="text-[#C8102E] font-bold uppercase tracking-wide hover:text-[#a00d25] inline-flex items-center gap-2 group">
+              <a href="team" className="text-[#C8102E] font-bold uppercase tracking-wide hover:text-[#a00d25] inline-flex items-center gap-2 group">
                 Meet The Team <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </a>
             </motion.div>
@@ -347,11 +338,11 @@ const HomePage = () => {
             <motion.a 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="tel:1234567890"
+              href="tel:+447343025270"
               className="bg-[#121212] text-white px-8 py-4 rounded-sm font-bold uppercase tracking-wide shadow-xl flex items-center justify-center gap-3 border border-[#3A3A3C]"
             >
               <Phone className="w-6 h-6" />
-              (555) 123-4567
+              +44-73-4302 5270
             </motion.a>
           </div>
         </div>

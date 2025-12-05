@@ -2,6 +2,10 @@
 
 import React, { useState, MouseEvent } from "react";
 import { useTheme } from "../context/ThemeContext"; // Make sure your context is in app/context/ThemeContext.tsx
+import { usePathname } from "next/navigation";
+
+
+
 import Image from "next/image";
 interface NavLink {
   name: string;
@@ -9,6 +13,7 @@ interface NavLink {
 }
 
 const Navbar: React.FC = () => {
+  const pathname = usePathname();
   const { darkMode, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -45,13 +50,17 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map(link => (
               <a
-                key={link.id}
-                href={`#${link.id}`}
-                onClick={e => handleScroll(e, link.id)}
-                className={`transition-colors duration-300 text-sm uppercase font-semibold tracking-wider ${
-                  darkMode ? "text-[#BFC0C0] hover:text-white" : "text-gray-600 hover:text-[#C8102E]"
-                }`}
-              >
+  key={link.id}
+  href={`/#${link.id}`}
+  onClick={(e) => {
+    if (pathname === "/") {
+      // on homepage → scroll
+      e.preventDefault();
+      handleScroll(e, link.id);
+    }
+    // if not homepage → let Next.js navigate normally
+  }}
+>
                 {link.name}
               </a>
             ))}

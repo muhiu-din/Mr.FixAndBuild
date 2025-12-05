@@ -1,5 +1,7 @@
 import React from 'react';
 import Image from "next/image";
+import { Facebook, Instagram, Mail, MessageCircle } from "lucide-react";
+
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -21,21 +23,46 @@ const Footer: React.FC = () => {
               Premium contracting and construction services. We build with precision, durability, and strength.
             </p>
             {/* Social Icons */}
-            <div className="flex space-x-4 pt-2">
-              {['Facebook', 'Twitter', 'Instagram', 'LinkedIn'].map((social) => (
-                <a
-                  key={social}
-                  href="#"
-                  aria-label={social}
-                  className="bg-black p-2 rounded-sm hover:bg-[#C8102E] text-white transition-colors duration-300"
-                >
-                  {/* Placeholder SVG Icon */}
-                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z" />
-                  </svg>
-                </a>
-              ))}
-            </div>
+<div className="flex space-x-4 pt-6">
+  {/* Facebook */}
+  <a
+    href="https://www.facebook.com/share/17SsN1yuJZ/?mibextid=wwXIfr"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-black p-3 rounded-sm hover:bg-[#C8102E] text-white transition-colors duration-300"
+  >
+    <Facebook className="w-5 h-5" />
+  </a>
+
+  {/* WhatsApp */}
+  <a
+    href="https://wa.me/+447343025270"  // <-- add your number here
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-black p-3 rounded-sm hover:bg-[#C8102E] text-white transition-colors duration-300"
+  >
+    <MessageCircle className="w-5 h-5" />
+  </a>
+
+  {/* Instagram */}
+  <a
+    href="https://www.instagram.com/mrfixandbuild.co.uk?igsh=MXZ1Z3o3ajk3ZDA4aQ=="
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-black p-3 rounded-sm hover:bg-[#C8102E] text-white transition-colors duration-300"
+  >
+    <Instagram className="w-5 h-5" />
+  </a>
+
+  {/* Gmail */}
+  <a
+    href="mailto:contactus@mrfixandbuild.co.uk"
+    className="bg-black p-3 rounded-sm hover:bg-[#C8102E] text-white transition-colors duration-300"
+  >
+    <Mail className="w-5 h-5" />
+  </a>
+</div>
+
           </div>
 
           {/* COLUMN 2: NAVIGATION */}
@@ -44,9 +71,9 @@ const Footer: React.FC = () => {
               Company
             </h3>
             <ul className="space-y-2 text-sm font-medium">
-              {['Home', 'About Us', 'Services', 'Projects', 'Careers'].map((item) => (
+              {['Home', 'About Us', 'Services', 'Projects'].map((item) => (
                 <li key={item}>
-                  <a href={`#${item.toLowerCase().replace(' ', '')}`} className="hover:text-white hover:underline decoration-[#C8102E] decoration-2 underline-offset-4 transition-all">
+                  <a href={`/#${item.toLowerCase().replace(' ', '')}`} className="hover:text-white hover:underline decoration-[#C8102E] decoration-2 underline-offset-4 transition-all">
                     {item}
                   </a>
                 </li>
@@ -83,7 +110,7 @@ const Footer: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </span>
-                <span>123 Industrial Ave, Suite 500<br />Milwaukee, WI 53202</span>
+                <span>Currently serving in<br />London</span>
               </li>
               <li className="flex items-center">
                 <span className="text-[#C8102E] mr-3">
@@ -91,7 +118,7 @@ const Footer: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </span>
-                <span>(555) 123-4567</span>
+                <span>+44-73-4302 5270</span>
               </li>
               <li className="flex items-center">
                 <span className="text-[#C8102E] mr-3">
@@ -99,7 +126,7 @@ const Footer: React.FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </span>
-                <span>projects@buildco.com</span>
+                <span>contactus@mrfixandbuild.co.uk</span>
               </li>
             </ul>
           </div>

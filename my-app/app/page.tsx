@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+
 import { useTheme } from "./context/ThemeContext"; 
 import { projects } from "@/app/data/projects";
 import { motion, Variants } from "framer-motion"; // Added 'Variants' import
@@ -38,6 +39,14 @@ const staggerContainer: Variants = {
 
 const HomePage = () => {
   const { darkMode } = useTheme(); 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true); // ensures client-side render only
+  }, []);
+
+  if (!mounted) return null; // avoid hydration mismatch
+
+
   const whatsappNumber = "+447343025270"; 
   const whatsappLink = `https://wa.me/${447343025270}?text=Hello%20Mr.%20Fix%20and%20Build,%20I%20need%20a%20quote.`;
 

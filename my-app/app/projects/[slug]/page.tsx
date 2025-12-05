@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useTheme } from "@/app/context/ThemeContext";
 import { projects } from "@/app/data/projects";
 import { ArrowRight } from "lucide-react";
-
+import { usePathname } from "next/navigation";
 interface ProjectDetailProps {
   params: Promise<{
     slug: string;
@@ -14,6 +14,7 @@ interface ProjectDetailProps {
 
 export default function ProjectDetail({ params }: ProjectDetailProps) {
   const { darkMode } = useTheme();
+  const pathname = usePathname();
 
   // ✅ unwrap async params (Next.js 15 requirement)
   const { slug } = use(params);

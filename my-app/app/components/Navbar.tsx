@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useState, MouseEvent } from "react";
-import { useTheme } from "../context/ThemeContext"; // Make sure your context is in app/context/ThemeContext.tsx
+import React, { useState, useEffect, MouseEvent } from "react";
+import { useTheme } from "../context/ThemeContext";
 import { usePathname } from "next/navigation";
-
-
-
 import Image from "next/image";
+
 interface NavLink {
   name: string;
   id: string;
@@ -16,6 +14,11 @@ const Navbar: React.FC = () => {
   const pathname = usePathname();
   const { darkMode, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false); // ✅ track client mount
+
+  useEffect(() => {
+    setMounted(true); // now we know we're on the client
+  }, []);
 
   const navLinks: NavLink[] = [
     { name: "Home", id: "home" },
@@ -33,6 +36,9 @@ const Navbar: React.FC = () => {
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Don't render theme-dependent content until mounted
+  if (!mounted) return null;
+
   return (
     <nav
       className={`fixed w-full z-50 transition-colors duration-300 ${
@@ -43,29 +49,30 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center h-20">
           {/* LOGO */}
           <div className="shrink-0 flex items-center cursor-pointer">
-            <Image className={`${darkMode ? "filter brightness-0 invert" : ""}`} src="/logo.png" alt="Mr. Fix and Build Logo" width={70} height={40} />
+            <Image
+              className={`${darkMode ? "filter brightness-0 invert" : ""}`}
+              src="/logo.png"
+              alt="Mr. Fix and Build Logo"
+              width={70}
+              height={40}
+            />
           </div>
 
           {/* DESKTOP MENU */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map(link => (
               <a
-  key={link.id}
-  href={`/#${link.id}`}
-  onClick={(e) => {
-    if (pathname === "/") {
-      // on homepage → scroll
-      e.preventDefault();
-      handleScroll(e, link.id);
-    }
-    // if not homepage → let Next.js navigate normally
-  }}
->
+                key={link.id}
+                href={`/#${link.id}`}
+                onClick={e => {
+                  if (pathname === "/") handleScroll(e, link.id);
+                }}
+              >
                 {link.name}
               </a>
             ))}
 
-            {/* THEME TOGGLE SLIDER (Desktop) */}
+            {/* THEME TOGGLE SLIDER */}
             <div
               onClick={toggleTheme}
               className={`relative w-14 h-7 rounded-full cursor-pointer transition-colors duration-300 flex items-center px-1 ${
@@ -83,7 +90,7 @@ const Navbar: React.FC = () => {
 
             {/* CTA BUTTON */}
             <a
-              href="#contact"
+              href="/#contact"
               onClick={e => handleScroll(e, "contact")}
               className="bg-[#C8102E] hover:bg-[#a00d25] text-white px-6 py-2 rounded-sm uppercase font-bold text-sm tracking-wide transition-all transform hover:scale-105 shadow-md"
             >
@@ -93,7 +100,7 @@ const Navbar: React.FC = () => {
 
           {/* MOBILE CONTROLS */}
           <div className="md:hidden flex items-center space-x-4">
-            {/* THEME TOGGLE (Mobile) */}
+            {/* THEME TOGGLE */}
             <div
               onClick={toggleTheme}
               className={`relative w-12 h-6 rounded-full cursor-pointer transition-colors duration-300 flex items-center px-1 ${
